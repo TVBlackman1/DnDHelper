@@ -8,7 +8,6 @@ public class HillDwarf extends Dwarf {
         super(_player);
         name = "Холмовой дварф";
         abilities.put(Ability.Wisdom, 1);
-        hitPointsMax = 1;
         raceFeatures.put("Дварфская выдержка", "Максимальное значение " +
                 "ваших хитов увеличивается на 1, и вы получаете 1 дополнительный " +
                 "хит с каждым новым уровнем.");

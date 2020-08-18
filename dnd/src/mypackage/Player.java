@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Player {
+    protected StartAbilities startAbilities;
     public Race race;
     protected Size size;
     public ArrayList<Class> classes;
@@ -16,7 +17,7 @@ public class Player {
     public int speed;
     public int AC;
     public int initiative;
-    //    public final int[] skills;
+//    public final int[] skills;
 //    public final int[] savingThrows;
 //    public final Boolean[] damageResistance;
 //    public final Boolean[] damageImmunity;
@@ -41,6 +42,7 @@ public class Player {
         damageImmunity = new HashMap<>();
         raceFeatures = new HashMap<String, String>();
         languages = new ArrayList<>();
+        startAbilities = new StartAbilities();
     }
 
     public void setRace(Race race) {
@@ -48,7 +50,6 @@ public class Player {
     }
 
     public void deleteRace(Race race) {
-        raceFeatures.clear();
     }
 
     public void appendClass(Class otherClass) {

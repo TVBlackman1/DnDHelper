@@ -2,7 +2,10 @@ package mypackage;
 
 
 import mypackage.properties.Ability;
+import mypackage.properties.DamageType;
 import mypackage.properties.Skill;
+
+import java.util.ArrayList;
 
 /**
  * Готовый персонаж
@@ -10,7 +13,8 @@ import mypackage.properties.Skill;
  * класса и начальных характеристик и появления черт
  * */
 public class ReadyPlayer extends Player {
-    ReadyPlayer(StartAbilities startAbilities, Race race, Class... classes) {
+    ReadyPlayer(StartAbilities startAbilities, Race race, ArrayList<Class> classes) {
+        super();
         this.race = race;
 
         setAbilities(startAbilities);
@@ -19,6 +23,10 @@ public class ReadyPlayer extends Player {
         setHitPointsMax();
         setInitiative();
         setAC();
+        setDamageResistant();
+        setDamageImmunity();
+        setSpeed();
+        setLanguages();
     }
 
     private void setHitPointsMax() {
@@ -86,6 +94,46 @@ public class ReadyPlayer extends Player {
         // TODO too many exceptions and add feats
     }
 
+    private void setDamageResistant() {
+        for (DamageType damageType: DamageType.values()) {
+            boolean resist = race.damageResistance.get(damageType);
+            for (Class _class: classes) {
+                resist |= _class.damageResistance.get(damageType);
+            }
+            damageResistance.put(damageType, resist);
+        }
+        // TODO add feast
 
+    }
 
+    private void setDamageImmunity() {
+        for (DamageType damageType: DamageType.values()) {
+            boolean immunity = race.damageImmunity.get(damageType);
+            for (Class _class: classes) {
+                immunity |= _class.damageImmunity.get(damageType);
+            }
+            damageImmunity.put(damageType, immunity);
+
+        }
+        // TODO add feast
+
+    }
+
+    private void setLanguages() {
+        languages.clear();
+        languages.addAll(race.languages);
+        for (Class _class: classes) {
+            languages.addAll(_class.languages);
+        }
+        // TODO add feast
+    }
+
+    private void setSpeed() { int raceBonus = race.speed;
+        int countClassBonus = 0;
+        for (Class _class: classes) {
+            countClassBonus += _class.speed;
+        }
+        speed = raceBonus + countClassBonus;
+        // TODO add feats
+    }
 }
