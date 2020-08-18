@@ -4,42 +4,51 @@ import mypackage.properties.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class Player {
     public Race race;
+    protected Size size;
     public ArrayList<Class> classes;
     public Class mainClass;
-    public short level;
-    public short hitPoints;
-    public short hitPointsMax;
-    public short speed;
-    public short AC;
-    public short initiative;
-    public final short[] abilities;
-    public final short[] skills;
-    public final short[] savingThrows;
-    public final Boolean[] damageResistance;
-    public final Boolean[] damageImmunity;
-    public HashMap<String, String> features;
+    public int level;
+    public int hitPoints;
+    public int hitPointsMax;
+    public int speed;
+    public int AC;
+    public int initiative;
+    //    public final int[] skills;
+//    public final int[] savingThrows;
+//    public final Boolean[] damageResistance;
+//    public final Boolean[] damageImmunity;
+//    public final int[] abilities;
+    public final HashMap<Ability, Integer> abilities;
+    public final HashMap<Ability, Integer> savingThrows;
+    public final HashMap<Skill, Integer> skills;
+    public final HashMap<DamageType, Boolean> damageResistance;
+    public final HashMap<DamageType, Boolean> damageImmunity;
+    public HashMap<String, String> raceFeatures;
     public ArrayList<String> languages;
-//    private short
+//    private int
 //     ячейки заклинаний резисты иммунититы статы навыки спасброски уязвимости состояния
 
     public Player() {
         race = null;
         classes = new ArrayList<>();
-        abilities = new short[6];
-        skills = new short[18];
-        savingThrows = new short[6];
-        damageResistance = new Boolean[13];
-        damageImmunity = new Boolean[13];
-        features = new HashMap<String, String>();
+        abilities = new HashMap<>();
+        skills = new HashMap<>();
+        savingThrows = new HashMap<>();
+        damageResistance = new HashMap<>();
+        damageImmunity = new HashMap<>();
+        raceFeatures = new HashMap<String, String>();
         languages = new ArrayList<>();
     }
 
     public void setRace(Race race) {
         this.race = race;
+    }
+
+    public void deleteRace(Race race) {
+        raceFeatures.clear();
     }
 
     public void appendClass(Class otherClass) {
@@ -54,15 +63,42 @@ public class Player {
         race.levelUp();
     }
 
-    public short getSkill(Skill skill) {
-        return skills[skill.ordinal()];
+    public int getSkill(Skill skill) {
+        return skills.get(skill);
     }
 
-    public short getAbility(Ability ability) {
-        return abilities[ability.ordinal()];
+    public int getAbility(Ability ability) {
+        return abilities.get(ability);
     }
 
-    public short getSavingThrows(Ability ability) {
-        return savingThrows[ability.ordinal()];
+    public int getSavingThrow(Ability ability) {
+        return savingThrows.get(ability);
+    }
+
+    protected int getModAbility(Ability ability) {
+        return (abilities.get(ability) - 10) / 2;
+    }
+
+    /**
+     * Добавляет начальные характеристики за очки
+     * */
+    public void setStartAbilities() {
+
+    }
+    // повышение хп и всего другого после бафом разных
+    public void update() {
+
+    }
+
+    public void buff() {
+        race.buff(this);
+    }
+
+    public int getHitPointsMax() {
+        return 0;
+    }
+
+    public int getInitiative() {
+        return 0;
     }
 }

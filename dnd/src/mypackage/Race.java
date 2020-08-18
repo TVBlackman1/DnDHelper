@@ -2,17 +2,23 @@ package mypackage;
 
 import mypackage.properties.*;
 
-public class Race {
+public class Race extends Player {
     protected String name;
-    protected Player player;
-    protected short level;
-    protected Size size;
+//    protected Player player;
+    public int level;
 
-    public Race(Player _player) {
-        player = _player;
-        level = 1;
+    public Race() {
+        level = 2;
     }
     public void levelUp() {
         level++;
+    }
+
+
+    /**
+     * Бафает какую-то характеристику персонажа
+     * */
+    public void buff(Player player) {
+
     }
 }
